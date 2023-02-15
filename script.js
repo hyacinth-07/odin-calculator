@@ -1,3 +1,26 @@
+const btn = document.querySelectorAll(".button");
+const op = document.querySelectorAll(".op");
+const display = document.querySelector("#display");
+const clear = document.querySelector("#clear");
+const equals = document.querySelector("#equals");
+const del = document.querySelector("#del");
+const prev = document.querySelector(".prevOperand");
+const next = document.querySelector(".nextOperand");
+
+
+btn.forEach(btn => {
+    btn.addEventListener("click", function () {
+        let val = btn.textContent;
+        next.append(val);
+    })
+})
+
+
+clear.addEventListener("click", function () {
+        prev.replaceChildren();
+        next.replaceChildren();
+})
+
 function operate (op, x, y) {
     let result;
     switch (op) {
@@ -18,23 +41,3 @@ function operate (op, x, y) {
     }
     return result;
 }
-
-
-function add (x, y) {
-    return x + y;
-}
-
-function subtract (x, y) {
-    return x - y;
-}
-
-function multiply (x, y) {
-    return x * y
-}
-
-function divide (x, y) {
-    return x / y;
-}
-
-let a = operate("div", 5, 4)
-console.log(a);
