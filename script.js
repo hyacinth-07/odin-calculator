@@ -7,6 +7,7 @@ const del = document.querySelector("#del");
 const prev = document.querySelector(".prevOperand");
 const next = document.querySelector(".nextOperand");
 let operation;
+let result;
 
 // init calc
 
@@ -20,6 +21,7 @@ function screenClear () {
     prev.replaceChildren();
     next.replaceChildren();
     operation = "";
+    result = "";
 }
 
 // APPEND NUMBERS
@@ -41,18 +43,23 @@ op.forEach(btn => {
         if (next.textContent.includes(val)) return;
         next.append(val);
         val = val.replace(/\s/g, '');
-        operation = val;
         chooseOp();
+        operation = val;
     })
 })
 
 function chooseOp () {
     let str = next.textContent;
+    let tempOp = operation;
     if (prev.childNodes.length !== 0) {
         operate();
+        next.replaceChildren();  
+        prev.append(result + " " + tempOp);
+    } else {  
+        prev.append(str);
+        next.replaceChildren();
     }
-    prev.append(str);
-    next.replaceChildren();
+    
 }
 
 // OPERATE
@@ -62,7 +69,6 @@ equals.addEventListener("click", function () {
 })
 
 function operate () {
-    let result;
     const prevNum = parseFloat(prev.textContent);
     const nextNum = parseFloat(next.textContent);
     if (isNaN(prevNum) || isNaN(nextNum)) return;
@@ -83,9 +89,9 @@ function operate () {
             return;
     }
     prev.replaceChildren();
-    next.replaceChildren();
-    operation = "";
+    next.replaceChildren();    
     next.append(result);
+    operation = "";
 }
 
 // DELETE
